@@ -28,14 +28,15 @@ app.config['BASIC_AUTH_FORCE'] = True
 basic_auth = BasicAuth(app)
 last_epoch = 0
 
+
+def on_connect(client, userdata, flags, rc):
+    print("Connected to MQTT server with result code :"+str(rc))
+
+
 client = mqtt.Client()
 client.on_connect = on_connect
 client.connect("192.168.0.xxx", 1883, 60) # use your MQTT server name
 client.loop_start()
-
-
-def on_connect(client, userdata, flags, rc):
-    print("Connected to MQTT server with result code :"+str(rc))
 
 
 def check_for_objects():
