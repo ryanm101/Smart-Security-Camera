@@ -107,6 +107,25 @@ You can view a live stream by visiting the ip address of your pi in a browser on
 
 Visit `<raspberrypi_ip>:5000` in your browser to view the stream.
 
+The default password is pi/securehome. To change the credentials, please modify `auth.py`
+
 Note: To view the live stream on a different network than your Raspberry Pi, you can use [ngrok](https://ngrok.com/) to expose a local tunnel. Once downloaded, run ngrok with `./ngrok http 5000` and visit one of the generated links in your browser.
 
 Note: The video stream will not start automatically on startup. To start the video stream automatically, you will need to run the program  from your `/etc/rc.local` file see this [video](https://youtu.be/51dg2MsYHns?t=7m4s) for more information about how to configure that.
+
+## MQTT
+
+Update following line with appropiate MQTT server, it can be any MQTT server
+
+```
+client.connect("192.168.0.xxx", 1883, 60) 
+```
+
+Update the topics that will reveice the motion notification
+
+```
+client.publish("home/door/front/motion","ON",0,False)
+client.publish("home/door/front/camera",frame,0,True)
+```
+
+The topic "home/door/front/camera" can be read as a MQTT camera stream https://home-assistant.io/components/camera.mqtt/
